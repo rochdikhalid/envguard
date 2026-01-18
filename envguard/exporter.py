@@ -20,9 +20,9 @@ def export_example(schema: Type[Schema], file: str = ".env.example") -> None:
             lines.append(f"{name}=")
         else:
             if isinstance(value, bool):
-                value_str: str(value).lower()
+                value_str = str(value).lower()
             else:
-                value_str: str(value)
+                value_str = str(value)
             lines.append(f"{name}={value_str}")
 
     content = "\n".join(lines) + "\n"

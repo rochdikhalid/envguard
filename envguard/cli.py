@@ -1,4 +1,4 @@
-import argpase 
+import argparse
 import sys
 from typing import Type
 

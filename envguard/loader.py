@@ -32,7 +32,7 @@ class EnvLoader:
             try:
                 values[name] = self.__cast(raw_value, meta["type"])
             except ValueError as exc:
-                errors[name]: str(exc)
+                errors[name] = str(exc)
 
         return values, errors
     
