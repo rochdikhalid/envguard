@@ -1,6 +1,6 @@
 import argparse
 import sys
-from typing import Type
+from typing import Dict, Type
 
 from .schema import Schema
 from .validator import EnvValidator

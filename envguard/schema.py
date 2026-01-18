@@ -3,9 +3,13 @@ from typing import Any, Dict, Type
 
 class SchemaError(Exception):
     """Base error for schema definition issues."""
+    def __init__(self, message: str):
+        super().__init__(f"[SchemaError] {message}")
 
 class InvalidSchemaError(SchemaError):
     """Raise when the schema definition is invalid."""
+    def __init__(self, message: str):
+        super().__init__(f"[InvalidSchemaError] {message}")
 
 class Schema:
     """
