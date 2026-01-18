@@ -41,6 +41,13 @@ def main():
         help="Output file (default: .env.example)"
     )
 
+    # -------- diff command --------
+    parser_diff = subparsers.add_parser(
+        "diff", help="Compare two .env files"
+    )
+    parser_diff.add_argument("file_a", type=str, help="Path to first .env file")
+    parser_diff.add_argument("file_b", type=str, help="Path to second .env file")    
+
     args = parser.parse_args()
 
     # Dynamically import schema
@@ -60,3 +67,25 @@ def main():
     elif args.command == "export":
         export_example(schema_class, file=args.output)
         print(f"✅ .env.example generated at {args.output}")
+
+    elif args.command == "diff":
+        def load_file(file_path: str) -> Dict[str, str]:
+            env_dict = {}
+            with open(file_path) as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    if "=" not in line:
+                        continue
+                    k, v = line.split("=", 1)
+                    env_dict[k.strip()] = v.strip()
+            return env_dict
+
+        env_a = load_file(args.file_a)
+        env_b = load_file(args.file_b)
+
+        from .diff import diff_envs
+
+        result = diff_envs(env_a, env_b)
+        print(result)
